@@ -12,12 +12,27 @@ actually help — and, only when asked, you help wire them in.
 
 ## Compatibility
 
-Portable instruction skill. Uses local tools (Glob, Grep, Read, Bash) to
-detect the stack and a curated catalog in references/catalog.md as the base.
-Uses WebFetch for live trend/tool discovery when the user asks for "what's new"
-or for stacks thinly covered by the catalog. Management commands target
-opencode (`opencode plugin`, `opencode mcp`) with a generic fallback noted for
-other agents.
+Portable instruction skill — it is plain instructions, so it runs in **any**
+agent that supports `SKILL.md` plus file/search/web tools. It is not tied to
+one vendor. Uses local tools (Glob, Grep, Read, Bash) to detect the stack and
+a curated catalog in references/catalog.md as the base. Uses WebFetch for live
+trend/tool discovery when the user asks for "what's new" or for stacks thinly
+covered by the catalog.
+
+## Portability — works with your agent
+
+The skill is instruction-only; only the *install/enable* commands differ per
+agent. Map as follows:
+
+| Agent | Install skill to | Enable plugins / MCP |
+|-------|------------------|----------------------|
+| **opencode** | `~/.agents/skills/project-compass/` (or `.opencode/skills/`) | `opencode plugin add <name>`, `opencode mcp add <name> -- <args>` |
+| **Claude Code** | `.claude/skills/project-compass/SKILL.md` (project) or `~/.claude/skills/...` (user) | `claude mcp add <name>`, or edit `.mcp.json` / `settings.json` |
+| **Cursor** | `.cursor/rules/project-compass.md` (as a rule) or project docs | configure `mcp.json` |
+| **Generic / other** | drop `SKILL.md` into the agent's skills/rules folder | follow that agent's MCP config format |
+
+The skill always emits the **opencode command** plus a note on the equivalent
+for other agents, so the recommendation is actionable everywhere.
 
 ## When to run
 
